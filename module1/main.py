@@ -35,7 +35,7 @@ def get_summary(prolific_id, question_id=1):
     q, q_objs = get_question(policy_id, question_id)
 
     res = "Error: unknown task type."
-
+    test = 'asdf'
     if policy_id < MANUAL_POLICY_ID:
         if q["taskType"] == 0:
             policy = CoronaNet.query.filter_by(policy_id=policy_id).first()
