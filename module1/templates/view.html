@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        table {
+          font-family: arial, sans-serif;
+          border-collapse: collapse;
+          width: 100%;
+        }
+
+        td, th {
+          border: 1px solid #dddddd;
+          text-align: left;
+          padding: 8px;
+        }
+
+        tr:nth-child(even) {
+          background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+    <button><a href="{{ url_for('main.get_summary', prolific_id=prolific_id, question_id=1) }}">Back</a></button>
+    <h2>Policy {{ policy_id }}</h2>
+    <table>
+        <tr>
+            <th>Task name</th>
+            <th>Your answer</th>
+        </tr>
+        {% for k in policy.keys() %}
+            <tr>
+                <td>{{ k }}</td>
+                <td>{{ policy[k] }}</td>
+            </tr>
+        {% endfor %}
+    </table>
+    <br><br><br><br><br>
+    <h1 style="align-self: center">{{ ending }}</h1>
+</body>
+</html>

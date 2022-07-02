@@ -1,0 +1,57 @@
+[
+    {
+        "id": 1,
+        "columnName": "description",
+        "question": "Please fill in a short description of the policy on the right side. It should include when and who did what policy.",
+        "answers": "",
+        "has_answer": false,
+        "clarification": "",
+        "isPrimaryKey": "False",
+        "taskType": 0,
+        "selected": true
+    },
+    {
+        "id": 2,
+        "columnName": "type",
+        "question": "Please select the appropriate policy category.",
+        "answers": "",
+        "has_answer": false,
+        "AI_QA_result": "",
+        "clarification": "This variable captures the type of government policy.",
+        "isPrimaryKey": "False",
+        "taskType": 1,
+        "options":
+            [
+                {"id":"q11-option1", "option": "Declaration of Emergency.", "note": "The head of government declares a state of national emergency.", "cos": 0, "checked": "False", "answer": "", "type": 0, "isTextEntry": false},
+                {"id":"q11-option2", "option": "Lockdown.", "note": "Targets of the policy are obliged shelter in place irrespective of potential likelihood of COVID-19 transmission and are only allowed to leave their shelter for specific reasons.", "cos": 0, "checked": "False", "answer": "", "type": 0, "isTextEntry": false},
+                {"id":"q11-option3", "option": "Curfew.", "note": "Government policies that limit domestic freedom of movement to certain times of the day.", "cos": 0, "checked": "False", "answer": "", "type": 0, "isTextEntry": false},
+                {"id":"q11-option4", "option": "Quarantine.", "note": "Targets of the policy are obliged to isolate themselves for at least 14 days because there is reason to suspect a person is infected with COVID-19.", "cos": 0, "checked": "False", "answer": "", "type": 0, "isTextEntry": false},
+                {"id":"q11-option5", "option": "External Border Restrictions.", "note": "Government policies which reduce the ability to access ports of entry or exit to or from different governmental jurisdictions.", "cos": 0, "checked": "False", "answer": "", "type": 0, "isTextEntry": false},
+                {"id":"q11-option6", "option": "Internal Border Restrictions.", "note": "Government policies which reduce the ability to move freely within the borders of the initiating government.", "cos": 0, "checked": "False", "answer": "", "type": 0, "isTextEntry": false},
+                {"id":"q11-option7", "option": "Restrictions of Mass Gatherings.", "note": "Government policies that limit the number of people allowed to congregate in a place. Please enter the number in the text entry.", "cos": 0, "checked": "False", "answer": "", "type": 0, "isTextEntry": false},
+                {"id":"q11-option8", "option": "Closure and Regulations of Schools.", "note": "Government policy which regulates educational establishments in a country. This may include: closing an educational institution completely, allowing an educational institution to open with certain conditions; allowing an educational institution to stay open without conditions.", "cos": 0, "checked": "False", "answer": "", "type": 0, "isTextEntry": false},
+                {"id":"q11-option9", "option": "Restriction and Regulations of Businesses.", "note": "Government policy regulates private, commercial activity. This can include closing down commercial establishments completely; allowing commercial establishments to open with conditions; or allowing commercial establishments to open without conditions.", "cos": 0, "checked": "False", "answer": "", "type": 0, "isTextEntry": false},
+                {"id":"q11-option10", "option": "Restriction and Regulation of Government Services.", "note": "Government policy which restricts and regulates government services, both essential and essential. This can include ceasing government services completely; allowing government services to operate with conditions; or allowing government services to operate without conditions.", "cos": 0, "checked": "False", "answer": "", "type": 0, "isTextEntry": false},
+                {"id":"q11-option11", "option": "Social Distancing.", "note": "Government policies that limit physical contact between individuals in public spaces.", "cos": 0, "checked": "False", "answer": "", "type": 0, "isTextEntry": false},
+                {"id":"q11-option12", "option": "Health Monitoring.", "note": "Government policies that seek to monitor the health of individuals who are afflicted with or who are likely to be afflicted with COVID-19.", "cos": 0, "checked": "False", "answer": "", "type": 0, "isTextEntry": false},
+                {"id":"q11-option13", "option": "Health Testing.", "note": "Government policies which seeks to sample large populations for coronavirus regardless of suspected likelihood of affliction with COVID-19.", "cos": 0, "checked": "False", "answer": "", "type": 0, "isTextEntry": false},
+                {"id":"q11-option14", "option": "Health Resources.", "note": "Government policies which affect the material (e.g. medical equipment, number of hospitals for public health) or human (e.g. doctors, nurses) health resources of a country.", "cos": 0, "checked": "False", "answer": "", "type": 0, "isTextEntry": false},
+                {"id":"q11-option15", "option": "Hygiene.", "note": "Government efforts to promote hygiene in public spaces (e.g. disinfection of subways, burials).", "cos": 0, "checked": "False", "answer": "", "type": 0, "isTextEntry": false},
+                {"id":"q11-option16", "option": "Public Awareness Measures.", "note": "Efforts to disseminate or gather reliable information about COVID-19, including ways to prevent or mitigate the health effects of COVID-19.", "cos": 0, "checked": "False", "answer": "", "type": 0, "isTextEntry": false},
+                {"id":"q11-option17", "option": "Anti-Disinformation Measures.", "note": "Efforts by the government to limit the spread of false, inaccurate or harmful information with regards to COVID-19.", "cos": 0, "checked": "False", "answer": "", "type": 0, "isTextEntry": false},
+                {"id":"q11-option18", "option": "New Task Force, Bureau or Administrative Configuration.", "note": "Government policy that changes the administrative capacity of a part of government to respond to the crisis.", "cos": 0, "checked": "False", "answer": "", "type": 0, "isTextEntry": false}
+            ],
+        "selected": true
+    },
+    {
+        "id": 3,
+        "columnName": "country",
+        "question": "Where was this policy announced?",
+        "answers": "",
+        "has_answer": false,
+        "clarification": "This variable documents the country in which a particular government policy is initiated. This variable always takes a value irrespective of what level of government the policy was made at (init country level).",
+        "isPrimaryKey": "False",
+        "taskType": 2,
+        "selected": true
+    }
+]

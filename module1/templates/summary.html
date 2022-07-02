@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="../../static/css/summary.css">
+    <script src="../../static/js/summary.js"></script>
+</head>
+<body>
+<h1>The generation of the summary of a policy:</h1>
+
+<div class="row">
+    <div class="column">
+        <h1>Question 1</h1>
+        <h2>Summary</h2>
+        <div class="ex1">
+            <textarea id="w3review" name="w3review" rows="20" cols="120" onkeyup="summary_change()" style="width: 880px">{{ policy.description }}</textarea>
+            {% if has_summary %}
+            <button id="save_summary" class="btn btn-outline-primary"
+                    onclick="save_summary('{{ policy.policy_id }}', true)"
+                    disabled=true>Save
+            </button>
+            {% else %}
+            <button id="save_summary" class="btn btn-outline-primary"
+                    onclick="save_summary('{{ policy.policy_id }}', true)">Save
+            </button>
+            {% endif %}
+
+            {% if next <= total %}
+            <button><a href="{{ url_for('main.get_summary', prolific_id=policy.prolific_id, question_id=next) }}">Next</a></button>
+            {% endif %}
+            <div style="height: 200px">
+                <main class="grid">
+                    <div id="complete">Complete: {{ complete }}/{{ total }}</div>
+                    {% for k in annotation_progress %}
+                    {% if annotation_progress[k] %}
+                    <div class="box1" id="ap_{{ k }}">
+                        <a href="{{ url_for('main.get_summary', prolific_id=policy.prolific_id, question_id=k) }}">{{ k
+                            }}</a>
+                    </div>
+                    {% else %}
+                    <div class="box2" id="ap_{{ k }}">
+                        <a href="{{ url_for('main.get_summary', prolific_id=policy.prolific_id, question_id=k) }}">{{ k
+                            }}</a>
+                    </div>
+                    {% endif %}
+                    {% endfor %}
+                </main>
+            </div>
+        </div>
+        <button><a href="{{ url_for('annotation.view', prolific_id=policy.prolific_id) }}">Results</a></button>
+    </div>
+
+    <div class="column">
+        <h1>Original Policy(Policy Id: {{ policy.policy_id }})</h1>
+        <div class="ex2" id="summary">
+            {% for items in policy.highlighted_text %}
+            {% if items[1] %}<span style="background-color: #FFFF00"> {{ items[0] }} </span>{% else %} {{ items[0] }} {%
+            endif %}
+            {% endfor %}
+        </div>
+    </div>
+
+
+</div>
+
+<div id="divSummaryText" style="display: none;">
+    {{ policy.description }}
+</div>
+</body>
+</html>

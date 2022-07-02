@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="../../static/css/policylist.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="../../static/js/policies.js"></script>
+</head>
+
+<body>
+    <a href="{{ url_for('auth.logout') }}">Logout</a>
+    <a href="{{ url_for('configuration.show') }}">Configuration</a>
+
+    <div class="policyListMain">
+        <div>
+            <h1>Select a policy for annotation:</h1>
+            <div id="searchDiv">
+                <input id="pidSearch"></input>
+                <button id="btnSearch" onclick="search()">Search</button>
+            </div>
+
+            <table class="table table-hover" style="width: 700px;">
+                <tbody>
+                    <tr>
+                        <th scope="col">Policy Id</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Status</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                {% for policy in policy_list %}
+                    <tr>
+                        <td>{{ policy.policy_id }}</td>
+                        <td></td>
+                        <td>{{ policy.get_status() }}</td>
+                        <td>
+                            <a
+                                href="{{ url_for('summary.get_summary', policy_id=policy.policy_id) }}"
+                                class="btn btn-outline-primary"
+                                role="button"
+                            >
+                                Edit
+                            </a>
+                        </td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+            {{ pagination.links }}
+            {{ pagination.info }}
+        </div>
+    </div>
+</body>
+</html>

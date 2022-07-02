@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Human-AI</title>
+    <link rel="stylesheet" href="../../static/css/home.css">
+</head>
+<body>
+    <div class="limiter">
+        <div class="container-login100">
+            <div class="login100">
+                <form method="POST" action="" class="loginform">
+                    <span class="login100-form-title">Login</span>
+                    <div style="justify-content: center;display: flex; margin-bottom: 10px;">
+                        {{ form.hidden_tag() }}
+                        <span class="focus-input100"></span>
+                        <span class="symbol-input100">
+                            <i class="fa fa-envelope" aria-hidden="true"></i>
+                        </span>
+                    </div>
+                    <div style="justify-content: center;display: flex; margin-bottom: 10px;">
+                        {{ form.username }}
+                    </div>
+                    <div style="justify-content: center;display: flex; margin-bottom: 10px;">
+                        {{ form.password }}
+                    </div>
+                    <div style="justify-content: center;display: flex; margin-top: 30px;">
+                        {{ form.submit }}
+                    </div>
+                </form>
+
+                <div style="justify-content: center;display: flex; margin-bottom: 10px;">
+                    <div class="signupDiv">
+                        <a class="signupA" href="{{ url_for('auth.register') }}">Sign Up</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

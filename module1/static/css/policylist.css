@@ -1,0 +1,133 @@
+* {
+  box-sizing: border-box;
+}
+
+.row {
+  margin-left:-5px;
+  margin-right:-5px;
+}
+
+.column {
+  float: left;
+  width: 50%;
+  padding: 5px;
+}
+
+/* Clearfix (clear floats) */
+.row::after {
+  content: "";
+  clear: both;
+  display: table;
+}
+
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+th, td {
+  text-align: left;
+  padding: 16px;
+}
+
+tr:nth-child(even) {
+  background-color: #f2f2f2;
+}
+
+/* Style the table */
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  border: 1px solid #ddd;
+}
+
+/* Style table headers and table data */
+th, td {
+  text-align: center;
+  padding: 16px;
+}
+
+th:first-child, td:first-child {
+  text-align: left;
+}
+
+/* Zebra-striped table rows */
+tr:nth-child(even) {
+  background-color: #f2f2f2
+}
+
+.fa-check {
+  color: green;
+}
+
+.fa-remove {
+  color: red;
+}
+
+div.ex1 {
+  background-color: white;
+  height: 400px;
+  width: 900px;
+  overflow-y: scroll;
+}
+
+/* Responsive layout - makes the two columns stack on top of each other instead of next to each other on screens that are smaller than 600 px */
+@media screen and (max-width: 600px) {
+  .column {
+    width: 100%;
+  }
+}
+
+.policyListMain {
+  display: flex;
+  justify-content: center;
+}
+
+#pidSearch {
+  border: 1px solid #aaa;
+  font-size: 16px;
+  padding: 10px 10px;
+  width: 60%;
+  background: #fff;
+  padding-left: 15px;
+  border-radius: 10px;
+  outline: none !important;
+  box-sizing: border-box;
+}
+
+#searchDiv {
+  padding-bottom: 20px;
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+
+#btnSearch {
+  border:none;
+  color: #FFFFFF;
+  background-color: #4CAF50;
+  background-color: #04AA6D!important;
+  border-radius: 10px;
+  font-size: 17px;
+  font-family: 'Source Sans Pro', sans-serif;
+  padding: 6px 18px;
+}
+
+.pagination-page-info {
+    padding: .6em;
+    padding-left: 0;
+    width: 40em;
+    margin: .5em;
+    margin-left: 0;
+    font-size: 12px;
+}
+.pagination-page-info b {
+    color: black;
+    background: #6aa6ed;
+    padding-left: 2px;
+    padding: .1em .25em;
+    font-size: 150%;
+}

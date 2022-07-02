@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="../../static/css/annotation.css">
+    <script src="../../static/js/annotation.js"></script>
+</head>
+<body style="overflow-y: hidden;">
+
+<div class="row">
+    <div class="column">
+        <div class="column">
+            <h1>Question {{ q['id'] }}</h1>
+            <div>
+                <div class="ex1">
+                    <div id="{{ q['id'] }}">
+                        {% if q['taskType'] == 1 and q["selected"] %}
+                        <h2>Task name: {{ q['columnName'] }}</h2>
+                        <p>Question: {{ q['question'] }}</p>
+                        <p>Clarification: {{ q['clarification'] }}</p>
+                        <input type="hidden" id="{{ q['id'] }}_answer" value="{{ q['answers'] }}">
+
+                        <div id="{{ q['id'] }}_op" style="border-style: dashed;">
+                            {% for option in q["options"] %}
+                            {% if option['checked'] == "True" %}
+                            <input id="{{ option['id'] }}" type="radio" class="big" name="{{ q['id'] }}_answer"
+                                   value="{{ option['option'] }}"
+                                   onclick="text_change('{{ q['id'] }}', '{{ option['isTextEntry'] }}')"
+                                   checked>
+                            {% else %}
+                            <input id="{{ option['id'] }}" type="radio" class="big" name="{{ q['id'] }}_answer"
+                                   value="{{ option['option'] }}"
+                                   onclick="text_change('{{ q['id'] }}', '{{ option['isTextEntry'] }}')">
+                            {% endif %}
+
+                            <label>{{ option['option'] }}</label><br>
+                            {% if option['note'] != "" %}
+                            <label>({{ option['note'] }})</label><br>
+                            {% endif %}
+                            <br><br>
+
+                            {% if option['isTextEntry'] %}
+                            {% if option['checked'] == "True" %}
+                            <div id="tb_{{ q['id'] }}" style="display: inline-block;"><textarea
+                                    oninput="text_change2('{{ q['id'] }}', '{{ option['isTextEntry'] }}')" value='{{ q['
+                                    answers'] }}' style="width: 867px; height: 122px;">{{ q['answers'] }}</textarea>
+                            </div>
+                            {% else %}
+                            <div id="tb_{{ q['id'] }}" style="display: none;"><textarea
+                                    oninput="text_change2('{{ q['id'] }}', '{{ option['isTextEntry'] }}')"
+                                    style="width: 867px; height: 122px;"></textarea>
+                            </div>
+                            {% endif %}
+                            {% endif %}
+                            <br>
+                            {% endfor %}
+                        </div>
+
+                        {% elif q['taskType'] == 2 and q["selected"] %}
+                        <h2>Task name: {{ q['columnName'] }}</h2>
+                        <p>Question: {{ q['question'] }}</p>
+                        <p>Clarification: {{ q['clarification'] }}</p>
+                        <textarea id="{{ q['id'] }}_answer" name="{{ q['id'] }}_answer"
+                                  onkeyup="text_change3('btn_save_{{ q['id'] }}')"
+                                  style="width: 867px; height: 122px;"></textarea>
+                        {% endif %}
+                    </div>
+                </div>
+
+                {% if q['taskType'] == 1 and q["selected"] %}
+                    <div>
+                        {% if q['has_answer'] %}
+                        <button id="btn_save_{{ q['id'] }}"
+                                onclick="save1(this, '{{ q['id'] }}', '{{ policy.policy_id }}', '{{ q['columnName'] }}')"
+                                disabled>Save
+                        </button>
+                        {% else %}
+                        <button id="btn_save_{{ q['id'] }}"
+                                onclick="save1(this, '{{ q['id'] }}', '{{ policy.policy_id }}', '{{ q['columnName'] }}')">
+                            Save
+                        </button>
+                        {% endif %}
+                    </div>
+                {% elif q['taskType'] == 2 and q["selected"] %}
+                    <div>
+                        {% if q['has_answer'] %}
+                        <button id="btn_save_{{ q['id'] }}"
+                                onclick="save2(this, '{{ q['id'] }}', '{{ policy.policy_id }}', '{{ q['columnName'] }}')"
+                        >Save
+                        </button>
+                        {% else %}
+                        <button id="btn_save_{{ q['id'] }}"
+                                onclick="save2(this, '{{ q['id'] }}', '{{ policy.policy_id }}', '{{ q['columnName'] }}')">
+                            Save
+                        </button>
+                        {% endif %}
+                    </div>
+                {% endif %}
+
+                <div>
+                    {% if pre > 0 %}
+                    <button><a href="{{ url_for('main.get_summary', prolific_id=policy.prolific_id, question_id=pre) }}">Previous</a>
+                    </button>
+                    {% endif %}
+
+                    {% if next <= total %}
+                    <button><a href="{{ url_for('main.get_summary', prolific_id=policy.prolific_id, question_id=next) }}">Next</a>
+                    </button>
+                    {% endif %}
+
+                    <button><a href="{{ url_for('annotation.view', prolific_id=policy.prolific_id) }}">Results</a></button>
+                </div>
+
+                <div style="height: 200px">
+                    <main class="grid">
+                        <div id="complete">Complete: {{ complete }}/{{ total }}</div>
+                        {% for k in annotation_progress %}
+                        {% if annotation_progress[k] %}
+                        <div class="box1" id="ap_{{ k }}">
+                            <a href="{{ url_for('main.get_summary', prolific_id=policy.prolific_id, question_id=k) }}">{{ k
+                            }}</a>
+                        </div>
+                        {% else %}
+                        <div class="box2" id="ap_{{ k }}">
+                            <a href="{{ url_for('main.get_summary', prolific_id=policy.prolific_id, question_id=k) }}">{{ k
+                            }}</a>
+                        </div>
+                        {% endif %}
+                        {% endfor %}
+                    </main>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div class="column">
+        <h1>Policy Id: {{ policy.policy_id }}</h1>
+        <div class="ex2" id="summary">
+            {% for g in graph_list %}
+            <div>
+                {% for key in g %}
+                <span id='{{ key }}'>
+                        {{ g[key] }}
+                    </span>
+                {% endfor %}
+            </div>
+            <br>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+</body>
+</html>
