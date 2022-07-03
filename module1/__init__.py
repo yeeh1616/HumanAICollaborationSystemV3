@@ -65,4 +65,7 @@ def create_app():
     from .configuration import bp_configuration as configuration_blueprint
     app.register_blueprint(configuration_blueprint)
 
+    from .manage import bp_manage as manage_blueprint
+    app.register_blueprint(manage_blueprint)
+
     return app
