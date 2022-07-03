@@ -1,11 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <link rel="stylesheet" href="../../static/css/policylist.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <meta charset="UTF-8">
     <title>Manage</title>
-    <script src="../../static/js/manage.js"></script>
 </head>
 <body>
-    <button id="clear_db" onclick="clear_db()">Clear DB</button>
+<div class="policyListMain">
+    <div>
+        <br>
+        <br>
+        <button><a href="{{ url_for('manage.clearall')}}">Clear</a></button>
+        <table class="table table-hover" style="width: 700px;">
+            <tr>
+                <td scope="col">Policy ID</td>
+                <td scope="col">Prolific ID</td>
+                <td scope="col">Description</td>
+                <td scope="col">Type</td>
+                <td scope="col">Country</td>
+            </tr>
+            {% for policy in policies %}
+            <tr>
+                <td>{{ policy.policy_id }}</td>
+                <td>{{ policy.prolific_id }}</td>
+                {% if policy.description is none %}
+                <td>{{ policy.description }}</td>
+                {% else %}
+                <td>{{ policy.description[:16] }} ...</td>
+                {% endif %}
+                <td>{{ policy.type }}</td>
+                <td>{{ policy.country }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
 </body>
 </html>
