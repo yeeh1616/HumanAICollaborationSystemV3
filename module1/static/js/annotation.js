@@ -179,3 +179,7 @@ function save2(btn, qid, pid, column) {
     xhttp.open("POST", "/policies/2/save");
     xhttp.send(parmas);
 }
+
+function hidePage() {
+    document.getElementById("overlay").style.display = "block";
+}

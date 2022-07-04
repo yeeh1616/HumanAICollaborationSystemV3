@@ -5,7 +5,7 @@
     <script src="../../static/js/annotation.js"></script>
 </head>
 <body style="overflow-y: hidden;">
-
+<div id="overlay"></div>
 <div class="row">
     <div class="column">
         <h1>Question {{ q['id'] }}</h1>
@@ -125,12 +125,12 @@
 
             <div>
                 {% if pre > 0 %}
-                <button><a href="{{ url_for('main.get_summary', prolific_id=policy.prolific_id, question_id=pre) }}">Previous</a>
+                <button onclick="hidePage()"><a href="{{ url_for('main.get_summary', prolific_id=policy.prolific_id, question_id=pre) }}">Previous</a>
                 </button>
                 {% endif %}
 
                 {% if next <= total %}
-                <button><a
+                <button onclick="hidePage()"><a
                         href="{{ url_for('main.get_summary', prolific_id=policy.prolific_id, question_id=next) }}">Next</a>
                 </button>
                 {% endif %}

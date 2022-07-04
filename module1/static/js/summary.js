@@ -25,3 +25,7 @@ function summary_change() {
     var btn_save = document.getElementById("save_summary");
     btn_save.disabled = false;
 }
+
+function hidePage() {
+    document.getElementById("overlay").style.display = "block";
+}

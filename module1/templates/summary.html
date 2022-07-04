@@ -6,7 +6,7 @@
 </head>
 <body>
 <h1>The generation of the summary of a policy:</h1>
-
+<div id="overlay"></div>
 <div class="row">
     <div class="column">
         <h1>Question 1</h1>
@@ -25,7 +25,7 @@
             {% endif %}
 
             {% if next <= total %}
-            <button><a href="{{ url_for('main.get_summary', prolific_id=policy.prolific_id, question_id=next) }}">Next</a></button>
+            <button onclick="hidePage()"><a href="{{ url_for('main.get_summary', prolific_id=policy.prolific_id, question_id=next) }}">Next</a></button>
             {% endif %}
             <div style="height: 200px">
                 <main class="grid">
