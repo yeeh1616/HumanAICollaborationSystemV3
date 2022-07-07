@@ -7,7 +7,7 @@ from sqlalchemy import desc
 
 from module1 import stop_words, wv, model_name, db
 from module1.global_variable import annotation_progress, TOP_N, original_text
-from module1.models import CoronaNet
+from module1.models import CoronaNet, Conf
 
 
 def setValue(policy, columnName, answer):
@@ -490,3 +490,9 @@ def get_policy_by_prolific_id(prolific_id):
         policy = CoronaNet.query.filter_by(prolific_id=prolific_id).first()
 
     return policy
+
+
+def get_max_manual_pid():
+    obj = Conf.query.filter_by(key="max_manual_pid").first()
+    value = obj.value
+    return int(value)

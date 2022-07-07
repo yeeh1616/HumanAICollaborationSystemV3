@@ -11,6 +11,11 @@
     <div>
         <br>
         <br>
+        <form action="{{ url_for('manage.update_pid')}}"  method="post">
+            <label for="pid">Start AI Pid:</label><br>
+            <input type="text" id="pid" name="pid" value=""><br>
+            <input type="submit" value="Submit">
+        </form>
         <button><a href="{{ url_for('manage.clearall')}}">Clear</a></button>
         <table class="table table-hover" style="width: 700px;">
             <tr>

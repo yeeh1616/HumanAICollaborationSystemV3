@@ -4,12 +4,12 @@ from flask import Blueprint, render_template
 
 from module1.global_variable import annotation_progress, q_cache, TOTAL_TASK_NUM
 from module1.helper import setValue, getValue, preprocess, tmp, get_annotation_progress, tmp2, cos_two_sentences, \
-    get_policy_by_prolific_id
+    get_policy_by_prolific_id, get_max_manual_pid
 # from module1.main import annotation_progress
-from module1.models import CoronaNet
+from module1.models import CoronaNet, Conf
 from nltk.corpus import stopwords
 from flask import request
-from module1 import db, MANUAL_POLICY_ID, model2, tokenizer, model, nlp
+from module1 import db, model2, tokenizer, model, nlp
 
 import numpy.linalg as LA
 import numpy as np
@@ -31,6 +31,8 @@ record how many questions have been saved, key is policy_id, value is a 2-d arra
 
 @bp_annotation.route("/annotation/<int:policy_id>/<int:question_id>", methods=['GET', 'POST'])
 def get_annotation(policy_id, question_id):
+    MANUAL_POLICY_ID = get_max_manual_pid()
+
     if policy_id < 1 or policy_id > MANUAL_POLICY_ID * 2:
         return "Policy {} is not found.".format(policy_id)
 

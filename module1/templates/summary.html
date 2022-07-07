@@ -50,16 +50,16 @@
     </div>
 
     <div class="column">
-        <h1>Original Policy(Policy Id: {{ policy.policy_id }})</h1>
+        <h1>Policy(Policy Id: {{ policy.policy_id }})</h1>
         <div class="ex2" id="summary">
             {% for items in policy.highlighted_text %}
+            <div>
             {% if items[1] %}<span style="background-color: #FFFF00"> {{ items[0] }} </span>{% else %} {{ items[0] }} {%
             endif %}
+            </div>
             {% endfor %}
         </div>
     </div>
-
-
 </div>
 
 <div id="divSummaryText" style="display: none;">

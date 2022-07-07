@@ -25,11 +25,8 @@ nlp = pipeline('question-answering', model=model_name, tokenizer=model_name)
 nltk.download('stopwords')
 nltk.download('punkt')
 
-MANUAL_POLICY_ID: int = 65
-
 
 def create_app():
-
     app = Flask(__name__)
     app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
     app.config['SECRET_KEY'] = 'thisisasecretkey'

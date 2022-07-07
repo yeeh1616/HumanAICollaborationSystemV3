@@ -2,11 +2,11 @@ from nltk.tokenize import word_tokenize, sent_tokenize
 from flask import Blueprint, render_template
 
 from module1.global_variable import q_cache, annotation_progress
-from module1.helper import get_annotation_progress, cos_two_sentences
-from module1.models import CoronaNet
+from module1.helper import get_annotation_progress, get_max_manual_pid
+from module1.models import CoronaNet, Conf
 from nltk.corpus import stopwords
 from flask import request
-from module1 import db, MANUAL_POLICY_ID
+from module1 import db
 
 import json
 
@@ -16,6 +16,8 @@ bp_summary = Blueprint('summary', __name__)
 # http://127.0.0.1:5000/summary/10
 @bp_summary.route("/summary/<int:policy_id>", methods=['GET', 'POST'])
 def get_summary(policy_id):
+    MANUAL_POLICY_ID = get_max_manual_pid()
+
     if policy_id < 1 or policy_id > MANUAL_POLICY_ID * 2:
         return "Policy {} is not found.".format(policy_id)
 

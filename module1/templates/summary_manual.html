@@ -49,9 +49,14 @@
         <button><a href="{{ url_for('annotation.view', prolific_id=policy.prolific_id) }}">Results</a></button>
     </div>
     <div class="column">
-        <h2>Original Policy(Policy Id: {{ policy.policy_id }})</h2>
+        <h1>Policy(Policy Id: {{ policy.policy_id }})</h1>
         <div class="ex2" id="summary">
-            {{ policy.original_text }}
+            {% for item in policy.highlighted_text %}
+            <div>
+            {{ item }}
+            </div>
+            <br>
+            {% endfor %}
         </div>
     </div>
 </div>

@@ -5,12 +5,12 @@ from sqlalchemy import desc
 from module1.annotation import get_selection_AI, get_annotation_progress, get_completation_AI, get_selection_manual, \
     get_completation_manual
 from module1.dao import upate_loading_time
-from module1.global_variable import annotation_progress, q_cache, original_text
-from module1.helper import get_policy_by_prolific_id
-from module1.models import CoronaNet
+from module1.global_variable import annotation_progress, q_cache
+from module1.helper import get_policy_by_prolific_id, get_max_manual_pid
+from module1.models import CoronaNet, Conf
 from nltk.corpus import stopwords
 from flask import request
-from module1 import db, MANUAL_POLICY_ID
+from module1 import db
 
 import time
 import json
@@ -23,6 +23,7 @@ bp_main = Blueprint('main', __name__)
 @bp_main.route("/main/<string:prolific_id>", methods=['GET', 'POST'])
 @bp_main.route("/main/<string:prolific_id>/<int:question_id>", methods=['GET', 'POST'])
 def get_summary(prolific_id, question_id=1):
+    MANUAL_POLICY_ID = get_max_manual_pid()
     policy = get_policy_by_prolific_id(prolific_id)
 
     policy_id = policy.policy_id
@@ -39,6 +40,9 @@ def get_summary(prolific_id, question_id=1):
     if policy_id < MANUAL_POLICY_ID:
         if q["taskType"] == 0:
             policy = CoronaNet.query.filter_by(policy_id=policy_id).first()
+
+            policy.highlighted_text = policy.original_text.split('\n')
+
             if policy.description is None:
                 policy.description = ''
 

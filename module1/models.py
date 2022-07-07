@@ -63,3 +63,9 @@ class CoronaNet(db.Model):
             return 'Doing'
         else:
             return 'Done'
+
+
+class Conf(db.Model):
+    __tablename__ = 'conf'
+    key = db.Column(db.Text, primary_key=True)
+    value = db.Column(db.Text, nullable=False)
