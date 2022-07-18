@@ -4,7 +4,7 @@ from flask import Blueprint, render_template
 
 from module1.global_variable import annotation_progress, q_cache, TOTAL_TASK_NUM
 from module1.helper import setValue, getValue, preprocess, tmp, get_annotation_progress, tmp2, cos_two_sentences, \
-    get_policy_by_prolific_id, get_max_manual_pid
+    get_policy_by_prolific_id, get_max_manual_pid, read_json_file_to_object
 # from module1.main import annotation_progress
 from module1.models import CoronaNet, Conf
 from nltk.corpus import stopwords
@@ -201,6 +201,24 @@ def get_selection_AI(policy_id, question_id, q):
     q["has_answer"] = has_answer
 
     summary_list = get_policy_obj(policy.original_text)
+    return policy, summary_list, graph_list
+
+
+def get_completation_AI_cache(policy_id, question_id, q):
+    policy = CoronaNet.query.filter_by(policy_id=policy_id).first()
+    db_column_name = q["columnName"]
+    db_column_answer = getattr(policy, db_column_name)
+    # q["answers"], graph_list = tmp2(q["columnName"], policy_id, q["question"], q["clarification"])
+    if db_column_answer is None or db_column_answer == "":
+        q["has_answer"] = False
+    else:
+        q["has_answer"] = True
+        q["AI_answer"] = db_column_answer
+
+    # summary_list = get_policy_obj(policy.original_text)
+    summary_list = read_json_file_to_object('ai_t2_cache_summary_list')
+    graph_list = read_json_file_to_object('ai_t2_cache_graph_list')
+    q["answers"] = read_json_file_to_object('ai_t2_cache_q_answers')
     return policy, summary_list, graph_list
 
 
@@ -403,6 +421,10 @@ def save(q_type):
     policy = db.session.query(CoronaNet).filter_by(policy_id=data["pid"]).first()
 
     policy = setValue(policy, data['column'], data['answer'])
+
+    if policy.description is not None and policy.country is not None and policy.type is not None:
+        policy.status = 1
+
     db.session.commit()
 
     # clear the cache
@@ -440,6 +462,10 @@ def save2():
     policy = db.session.query(CoronaNet).filter_by(policy_id=data["pid"]).first()
 
     policy = setValue(policy, data['column'], data['answer'])
+
+    if policy.description is not None and policy.country is not None and policy.type is not None:
+        policy.status = 1
+
     db.session.commit()
 
     # clear the cache

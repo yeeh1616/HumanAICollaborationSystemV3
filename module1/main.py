@@ -1,21 +1,16 @@
-from nltk.tokenize import word_tokenize, sent_tokenize
 from flask import Blueprint, render_template
-from sqlalchemy import desc
-
 from module1.annotation import get_selection_AI, get_annotation_progress, get_completation_AI, get_selection_manual, \
-    get_completation_manual
+    get_completation_manual, get_completation_AI_cache
 from module1.dao import upate_loading_time
 from module1.global_variable import annotation_progress, q_cache
-from module1.helper import get_policy_by_prolific_id, get_max_manual_pid
-from module1.models import CoronaNet, Conf
-from nltk.corpus import stopwords
-from flask import request
-from module1 import db
+from module1.helper import get_policy_by_prolific_id, get_max_manual_pid, read_json_file_to_object, \
+    write_object_to_json_file
+from module1.models import CoronaNet
 
 import time
 import json
 
-from module1.summary import get_summary_manual, get_summary_AI
+from module1.summary import get_summary_AI
 
 bp_main = Blueprint('main', __name__)
 
@@ -74,11 +69,19 @@ def get_summary(prolific_id, question_id=1):
         else:
             if q["taskType"] == 1:
                 policy, summary_list, graph_list = get_selection_AI(policy_id, question_id, q)
+
                 if policy_id % 2 == 0:
                     from module1.helper_tmp import set_selection_AI_tmp
                     set_selection_AI_tmp(q)
             elif q["taskType"] == 2:
-                policy, summary_list, graph_list = get_completation_AI(policy_id, question_id, q)
+                policy, summary_list, graph_list = get_completation_AI_cache(policy_id, question_id, q)
+
+                if summary_list is None or graph_list is None:
+                    policy, summary_list, graph_list = get_completation_AI(policy_id, question_id, q)
+                    write_object_to_json_file('ai_t2_cache_q_answers', q['answers'])
+                    write_object_to_json_file('ai_t2_cache_summary_list', summary_list)
+                    write_object_to_json_file('ai_t2_cache_graph_list', graph_list)
+
                 if policy_id % 2 == 0:
                   from module1.helper_tmp import set_completation_AI_tmp
                   set_completation_AI_tmp(q)

@@ -8,6 +8,7 @@ from sqlalchemy import desc
 from module1 import stop_words, wv, model_name, db
 from module1.global_variable import annotation_progress, TOP_N, original_text
 from module1.models import CoronaNet, Conf
+import json
 
 
 def setValue(policy, columnName, answer):
@@ -496,3 +497,18 @@ def get_max_manual_pid():
     obj = Conf.query.filter_by(key="max_manual_pid").first()
     value = obj.value
     return int(value)
+
+
+def write_object_to_json_file(file_name, data):
+    with open('./module1/static/{}.json'.format(file_name), 'w', encoding="utf8") as f:
+        json_string = json.dumps(data)
+        f.write(json_string)
+
+
+def read_json_file_to_object(file_name):
+    try:
+        with open('./module1/static/{}.json'.format(file_name), encoding="utf8") as f:
+            obj = json.load(f)
+        return obj
+    except:
+        return None

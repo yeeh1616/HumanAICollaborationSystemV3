@@ -12,11 +12,25 @@
         <br>
         <br>
         <form action="{{ url_for('manage.update_pid')}}"  method="post">
-            <label for="pid">Start AI Pid:</label><br>
-            <input type="text" id="pid" name="pid" value=""><br>
+            <label for="pid">Max Task Number:</label><br>
+            <input type="text" id="pid" name="pid" value="{{ max_task_num }}">
             <input type="submit" value="Submit">
         </form>
-        <button><a href="{{ url_for('manage.clearall')}}">Clear</a></button>
+
+        <form action="{{ url_for('manage.ai_or_human')}}" method="post">
+            {% if ai_or_human == '0' %}
+            <input type="radio" name="ai_or_human" value="0" checked><label>AI</label>
+            <input type="radio" name="ai_or_human" value="1"><label>Human</label>
+            {% else %}
+            <input type="radio" name="ai_or_human" value="0"><label>AI</label>
+            <input type="radio" name="ai_or_human" value="1" checked><label>Human</label>
+            {% endif %}
+            <input type="submit" value="Submit">
+        </form>
+
+<!--        <button><a href="{{ url_for('manage.clearall')}}">Clear</a></button>-->
+        <button><a href="{{ url_for('manage.manage')}}">Completed Tasks</a></button>
+        <button><a href="{{ url_for('manage.manage', status=1)}}">All Tasks</a></button>
         <table class="table table-hover" style="width: 700px;">
             <tr>
                 <td scope="col">Policy ID</td>
@@ -24,6 +38,8 @@
                 <td scope="col">Description</td>
                 <td scope="col">Type</td>
                 <td scope="col">Country</td>
+                <td scope="col">Status</td>
+                <td scope="col">Loading Time</td>
             </tr>
             {% for policy in policies %}
             <tr>
@@ -36,6 +52,8 @@
                 {% endif %}
                 <td>{{ policy.type }}</td>
                 <td>{{ policy.country }}</td>
+                <td>{{ policy.status }}</td>
+                <td>{{ policy.loading_time }}</td>
             </tr>
             {% endfor %}
         </table>
