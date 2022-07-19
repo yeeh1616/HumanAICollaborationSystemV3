@@ -483,7 +483,7 @@ def get_policy_by_prolific_id(prolific_id):
         else:
             pid_tmp = res.policy_id + 1
 
-        policy = CoronaNet(policy_id=pid_tmp, prolific_id=prolific_id, status=1, original_text=original_text,
+        policy = CoronaNet(policy_id=pid_tmp, prolific_id=prolific_id, status=0, original_text=original_text,
                            loading_time=0)
         db.session.add(policy)
         db.session.commit()
@@ -493,10 +493,20 @@ def get_policy_by_prolific_id(prolific_id):
     return policy
 
 
-def get_max_manual_pid():
-    obj = Conf.query.filter_by(key="max_manual_pid").first()
+def get_ai_or_human():
+    obj = Conf.query.filter_by(key="ai_or_human").first()
+    return obj.value
+
+
+def get_max_task_num():
+    obj = Conf.query.filter_by(key="max_task_num").first()
     value = obj.value
     return int(value)
+
+
+def get_completed_task_num():
+    completed_task_num = CoronaNet.query.filter_by(status=1).count()
+    return completed_task_num
 
 
 def write_object_to_json_file(file_name, data):

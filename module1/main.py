@@ -3,8 +3,8 @@ from module1.annotation import get_selection_AI, get_annotation_progress, get_co
     get_completation_manual, get_completation_AI_cache
 from module1.dao import upate_loading_time
 from module1.global_variable import annotation_progress, q_cache
-from module1.helper import get_policy_by_prolific_id, get_max_manual_pid, read_json_file_to_object, \
-    write_object_to_json_file
+from module1.helper import get_policy_by_prolific_id, get_max_task_num, read_json_file_to_object, \
+    write_object_to_json_file, get_ai_or_human, get_completed_task_num
 from module1.models import CoronaNet
 
 import time
@@ -18,21 +18,22 @@ bp_main = Blueprint('main', __name__)
 @bp_main.route("/main/<string:prolific_id>", methods=['GET', 'POST'])
 @bp_main.route("/main/<string:prolific_id>/<int:question_id>", methods=['GET', 'POST'])
 def get_summary(prolific_id, question_id=1):
-    MANUAL_POLICY_ID = get_max_manual_pid()
+    tic = time.perf_counter()
     policy = get_policy_by_prolific_id(prolific_id)
-
     policy_id = policy.policy_id
 
-    tic = time.perf_counter()
+    ai_or_human = get_ai_or_human()
+    max_task_num = get_max_task_num()
+    completed_task_num = get_completed_task_num()
 
-    if policy_id < 1 or policy_id > MANUAL_POLICY_ID * 2:
+    if completed_task_num >= max_task_num:
         return "Policy {} is not found.".format(policy_id)
 
     q, q_objs = get_question(policy_id, question_id)
 
     res = "Error: unknown task type."
 
-    if policy_id < MANUAL_POLICY_ID:
+    if ai_or_human == '1':
         if q["taskType"] == 0:
             policy = CoronaNet.query.filter_by(policy_id=policy_id).first()
 
